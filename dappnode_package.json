@@ -1,0 +1,25 @@
+{
+  "name": "avalanchego.avado.dnp.dappnode.eth",
+  "version": "0.1.18",
+  "description": "This is the AVA go node. AVA is an open-source platform for launching highly decentralized applications, new financial primitives, and new interoperable blockchains.",
+  "avatar": "/ipfs/Qmd9ySFx1Rqz45hvGGfPL44pgW1jtnGPvpmXTZFjsvTgTd",
+  "type": "service",
+  "image": {
+    "path": "avalanchego.avado.dnp.dappnode.eth_0.1.18.tar.xz",
+    "hash": "/ipfs/QmasDrLDC9VmVybajRoi9mXhKFBz6mgFLWmDkZmXL3F49G",
+    "size": 239842980,
+    "restart": "always",
+    "environment": [
+      "EXTRA_OPTS"
+    ],
+    "volumes": [
+      "data:/data"
+    ],
+    "ports": [
+      "9650:9650",
+      "81:81"
+    ]
+  },
+  "author": "AVADO",
+  "license": "(C)"
+}
