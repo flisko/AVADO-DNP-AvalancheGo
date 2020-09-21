@@ -6,8 +6,8 @@
   "type": "service",
   "image": {
     "path": "avalanchego.avado.dnp.dappnode.eth_0.1.18.tar.xz",
-    "hash": "/ipfs/QmasDrLDC9VmVybajRoi9mXhKFBz6mgFLWmDkZmXL3F49G",
-    "size": 239842980,
+    "hash": "/ipfs/QmTJ7zkMRs8zbEptG18dwVkRMXvikC5dE4i6F9CiFYJph5",
+    "size": 245862256,
     "restart": "always",
     "environment": [
       "EXTRA_OPTS"
