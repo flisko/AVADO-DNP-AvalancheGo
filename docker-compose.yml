@@ -1,18 +1,19 @@
 version: '3.4'
 services:
   avalanchego.avado.dnp.dappnode.eth:
-    image: 'avalanchego.avado.dnp.dappnode.eth:0.1.18'
+    image: 'avalanchego.avado.dnp.dappnode.eth:0.1.22'
     build:
       context: ./build
       args:
-        - VERSION=0.8.4
+        - VERSION=v1.0.2
     environment:
       - EXTRA_OPTS=
     volumes:
       - 'data:/data'
     ports:
       - '9650:9650'
-      - '81:81'
+      - '9651:9651'
+      - '80:80'
 volumes:
   data: {}
   logs: {}

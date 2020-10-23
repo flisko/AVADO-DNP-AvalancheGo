@@ -1,19 +1,21 @@
 diff --git a/src/store/modules/network/network.ts b/src/store/modules/network/network.ts
-index c5136ef..581c925 100644
+index 093b13f..23cb184 100644
 --- a/src/store/modules/network/network.ts
 +++ b/src/store/modules/network/network.ts
-@@ -65,12 +65,11 @@ const network_module: Module<NetworkState, RootState> = {
+@@ -75,12 +75,15 @@ const network_module: Module<NetworkState, RootState> = {
          },
  
          async init({state, commit, dispatch}){
-+            let netLocal = new AvaNetwork("AVADO",'http://my.avalanchego.avado.dnp.dappnode.eth:9650', 4, 'https://explorerapi.avax.network');
-             let netTest = new AvaNetwork("Everest TestNet", 'https://testapi.avax.network:443', 4, 'X', 'https://explorerapi.avax.network');
--            let netLocal = new AvaNetwork("Localhost",'http://localhost:9650', 12345, 'X');
++
++             let avado = new AvaNetwork("Mainnet (AVADO)", 'http://my.avalanchego.avado.dnp.dappnode.eth:9650', 1, 'X', 'https://explorerapi.avax.network');
++
+             // let netTest = new AvaNetwork("Everest TestNet", 'https://api.avax-test.network:443', 4, 'X', 'https://explorerapi.avax.network');
+             let manhattan = new AvaNetwork("Mainnet",'https://api.avax.network:443', 1, 'X', "https://explorerapi.avax-dev.network");
+             let fuji = new AvaNetwork("Fuji",'https://api.avax-test.network:443', 5, 'X', "https://explorerapi.avax-test.network");
+             let netLocal = new AvaNetwork("Localhost",'http://localhost:9650', 12345, 'X');
  
 -
--            commit('addNetwork', netTest);
-             commit('addNetwork', netLocal);
-+            commit('addNetwork', netTest);
-             try{
-                 let res = await dispatch('setNetwork', state.networks[0]);
-                 return true;
++             commit('addNetwork', avado);
+             // commit('addNetwork', netTest);
+             commit('addNetwork', manhattan);
+             commit('addNetwork', fuji);

@@ -1,27 +1,16 @@
-
 FROM golang:1.13.4-buster as builder
 
 ARG VERSION
 WORKDIR /
-RUN wget https://github.com/ava-labs/avalanchego/releases/download/v$VERSION/avalanchego-linux-$VERSION.tar
-RUN tar xvf avalanchego-linux-$VERSION.tar
+RUN wget https://github.com/ava-labs/avalanchego/releases/download/$VERSION/avalanchego-linux-$VERSION.tar.gz
+RUN tar zxvf avalanchego-linux-$VERSION.tar.gz
+RUN ls -l
 RUN mkdir -p /app
-RUN mv avalanche-$VERSION/* /app
+RUN mv avalanchego-$VERSION/* /app
 RUN echo "contents of /app in builder"
 RUN ls -l /app
 
 FROM node:12.14.1 as build-deps-wizard
-
-# # build wizard
-# WORKDIR /usr/src/app/wizard
-# COPY wizard .
-# RUN yarn
-# RUN rm -Rf build && yarn run build
-
-# build monitor
-# WORKDIR /usr/src/app/monitor
-# COPY monitor .
-# RUN npm i --production
 
 WORKDIR /usr/src/app/wallet
 RUN git clone https://github.com/ava-labs/avalanche-wallet.git
@@ -60,9 +49,6 @@ RUN ls -l /usr/local/wallet
 RUN apt-get update
 RUN apt-get install -y supervisor nginx
 RUN apt-get clean
-
-#COPY --from=build-deps-wizard /usr/src/app/monitor /usr/src/monitor
-#COPY --from=build-deps-wizard /usr/src/app/wizard/build /usr/src/monitor/wizard
 
 COPY files/supervisord.conf /etc/supervisord/
 COPY files/nginx.conf /etc/nginx/
