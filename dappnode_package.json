@@ -1,32 +1,38 @@
 {
   "name": "avalanchego.avado.dnp.dappnode.eth",
-  "version": "0.1.22",
-  "upstream": "v1.0.2",
-  "title": "AVA node (Mainnet)",
-  "description": "This is the AVA go node. AVA is an open-source platform for launching highly decentralized applications, new financial primitives, and new interoperable blockchains.",
-  "avatar": "/ipfs/Qmd9ySFx1Rqz45hvGGfPL44pgW1jtnGPvpmXTZFjsvTgTd",
+  "version": "0.1.33",
+  "upstream": "v1.1.1",
+  "title": "Avalanche node",
+  "description": "This is the Avalanche Mainnet node. Avalanche is an open-source platform for launching highly decentralized applications, new financial primitives, and new interoperable blockchains.",
+  "avatar": "/ipfs/QmVwkdxaKfTiv6apuHjVP2ftzPahpcmwHpBNNdKp8QzZPn",
   "type": "service",
   "autoupdate": true,
   "image": {
-    "path": "avalanchego.avado.dnp.dappnode.eth_0.1.22.tar.xz",
-    "hash": "/ipfs/QmQYqBottLyJod17o3i9kdRVEaPuEQpgmbqEZDAhVRpAxY",
-    "size": 242623200,
+    "path": "avalanchego.avado.dnp.dappnode.eth_0.1.33.tar.xz",
+    "hash": "/ipfs/QmXSwju4CxTAMqoGQLVFgdnKorRr4iYjqWzvr5Wek1B1r3",
+    "size": 280931604,
     "restart": "always",
     "environment": [
       "EXTRA_OPTS"
     ],
+    "ports": [
+      "9651:9651",
+      "9651:9651/udp"
+    ],
     "volumes": [
-      "data:/data"
+      "data:/root/.avalanchego"
     ]
   },
   "author": "AVADO",
   "license": "(C)",
   "links": {
-    "OnboardingWizard": "http://my.avalanchego.avado.dnp.dappnode.eth"
+    "OnboardingWizard": "http://avalanchego.avadopackage.com",
+    "Wallet": "https://avalanchego.avadopackage.com",
+    "RPC": "https://avalanchego.avadopackage.com:9650"
   },
   "ui": {
     "OnboardingWizard": {
-      "url": "http://my.avalanchego.avado.dnp.dappnode.eth",
+      "url": "http://avalanchego.avadopackage.com",
       "external": true
     }
   }

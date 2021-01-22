@@ -1,21 +1,31 @@
 diff --git a/src/store/modules/network/network.ts b/src/store/modules/network/network.ts
-index 093b13f..23cb184 100644
+index df45ee0..7f76e36 100644
 --- a/src/store/modules/network/network.ts
 +++ b/src/store/modules/network/network.ts
-@@ -75,12 +75,15 @@ const network_module: Module<NetworkState, RootState> = {
+@@ -164,7 +164,7 @@ const network_module: Module<NetworkState, RootState> = {
          },
  
-         async init({state, commit, dispatch}){
-+
-+             let avado = new AvaNetwork("Mainnet (AVADO)", 'http://my.avalanchego.avado.dnp.dappnode.eth:9650', 1, 'X', 'https://explorerapi.avax.network');
-+
-             // let netTest = new AvaNetwork("Everest TestNet", 'https://api.avax-test.network:443', 4, 'X', 'https://explorerapi.avax.network');
-             let manhattan = new AvaNetwork("Mainnet",'https://api.avax.network:443', 1, 'X', "https://explorerapi.avax-dev.network");
-             let fuji = new AvaNetwork("Fuji",'https://api.avax-test.network:443', 5, 'X', "https://explorerapi.avax-test.network");
-             let netLocal = new AvaNetwork("Localhost",'http://localhost:9650', 12345, 'X');
+         async init({ state, commit, dispatch }) {
+-            // let netTest = new AvaNetwork("Everest TestNet", 'https://api.avax-test.network:443', 4, 'https://explorerapi.avax.network');
++            // let netTest = new AvaNetwork('Everest TestNet", 'https://api.avax-test.network:443', 4, 'https://explorerapi.avax.network');
+             let manhattan = new AvaNetwork(
+                 'Mainnet',
+                 'https://api.avax.network:443',
+@@ -189,6 +189,17 @@ const network_module: Module<NetworkState, RootState> = {
+                 console.error(e)
+             }
  
--
-+             commit('addNetwork', avado);
++            let avado = new AvaNetwork(
++                'Mainnet (AVADO)',
++                'https://avalanchego.avadopackage.com:9650',
++                1,
++                'https://explorerapi.avax.network',
++                'https://explorer.avax.network',
++                true
++            )
++
++            commit('addNetwork', avado)
++
              // commit('addNetwork', netTest);
-             commit('addNetwork', manhattan);
-             commit('addNetwork', fuji);
+             commit('addNetwork', manhattan)
+             commit('addNetwork', fuji)

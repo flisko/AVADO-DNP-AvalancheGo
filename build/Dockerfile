@@ -2,8 +2,8 @@ FROM golang:1.13.4-buster as builder
 
 ARG VERSION
 WORKDIR /
-RUN wget https://github.com/ava-labs/avalanchego/releases/download/$VERSION/avalanchego-linux-$VERSION.tar.gz
-RUN tar zxvf avalanchego-linux-$VERSION.tar.gz
+RUN wget https://github.com/ava-labs/avalanchego/releases/download/$VERSION/avalanchego-linux-amd64-$VERSION.tar.gz
+RUN tar zxvf avalanchego-linux-amd64-$VERSION.tar.gz
 RUN ls -l
 RUN mkdir -p /app
 RUN mv avalanchego-$VERSION/* /app
@@ -12,7 +12,11 @@ RUN ls -l /app
 
 FROM node:12.14.1 as build-deps-wizard
 
+RUN apt-get update && apt-get install -y openssl
+
+# build wallet UI
 WORKDIR /usr/src/app/wallet
+RUN npm -v
 RUN git clone https://github.com/ava-labs/avalanche-wallet.git
 RUN cd avalanche-wallet
 WORKDIR /usr/src/app/wallet/avalanche-wallet
@@ -28,6 +32,33 @@ RUN yarn build
 
 RUN ls -l /usr/src/app/wallet/avalanche-wallet/dist
 
+# build wallet UI
+WORKDIR /usr/src/app/wizard
+COPY wizard .
+RUN yarn
+RUN yarn build
+
+
+# RUN echo "start building certs"
+# WORKDIR /cert
+# RUN cp /etc/ssl/openssl.cnf .
+# RUN echo "[SAN]\nsubjectAltName=DNS:my.avalanchego.avado.dnp.dappnode.eth" >> openssl.cnf
+# RUN cat openssl.cnf
+# RUN PASSWORD=$(echo $(LC_CTYPE=C tr -dc 'A-HJ-NPR-Za-km-z2-9' < /dev/urandom | head -c 20)) && \
+#     openssl genrsa -des3 -passout pass:${PASSWORD} -out server.pass.key 2048 && \
+#     openssl rsa -passin pass:${PASSWORD} -in server.pass.key -out server.key && \
+#     rm server.pass.key && \
+#     openssl req -new -key server.key -out server.csr \
+#         -reqexts SAN \
+#         -extensions SAN \
+#         -config openssl.cnf \
+#         -subj "/C=DE/ST=AVADO/L=AVADO/O=my.avalanchego.avado.dnp.dappnode.eth/OU=saskia@ava.do/CN=my.avalanchego.avado.dnp.dappnode.eth" && \
+#     openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
+# RUN echo "certs"
+# RUN ls -l /cert
+
+
+
 
 FROM golang:1.13.4-buster
 #FROM node:current-alpine3.12
@@ -36,14 +67,20 @@ USER root
 
 COPY --from=builder /app /usr/local/app
 COPY --from=build-deps-wizard /usr/src/app/wallet/avalanche-wallet/dist /usr/local/wallet
+COPY --from=build-deps-wizard /usr/src/app/wizard/build /usr/local/wizard
+
+RUN echo "contents of /usr/local/ in target"
+RUN ls -l /usr/local/
+RUN echo "contents of /usr/local/wizard in target"
+RUN ls -l /usr/local/wizard
+# RUN echo "contents of /usr/local/wallet in target "
+# RUN ls -l /usr/local/wallet
+RUN echo "-------------"
+
 
 RUN echo "contents of /usr/local/app in target"
 RUN ls -l /usr/local/app
 RUN chmod +x /usr/local/app/avalanchego
-
-RUN echo "contents of /usr/local/wallet in target"
-RUN ls -l /usr/local/wallet
-
 
 #RUN apk add -U --no-cache supervisor go
 RUN apt-get update
@@ -52,6 +89,11 @@ RUN apt-get clean
 
 COPY files/supervisord.conf /etc/supervisord/
 COPY files/nginx.conf /etc/nginx/
+RUN mkdir -p /etc/nginx/certs/
+#COPY --from=build-deps-wizard /cert/server.* /etc/nginx/certs/
+COPY files/server.* /etc/nginx/certs/
+RUN ls -l /etc/nginx/certs
+RUN cat /etc/nginx/nginx.conf
 
 RUN useradd nginx
 
