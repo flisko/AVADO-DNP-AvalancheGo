@@ -142,5 +142,20 @@
     "uploadedTo": {
       "dappnode": "Mon, 11 Jan 2021 12:22:55 GMT"
     }
+  },
+  "0.1.34": {
+    "hash": "/ipfs/Qma1YXXkm712vDKrAYneVAsQqj1o7hvhnsNVsdjhUwc6ZW",
+    "type": "manifest",
+    "uploadedTo": {
+      "http://80.208.229.228:5001": "Thu, 11 Feb 2021 22:47:58 GMT",
+      "dappnode": "Thu, 11 Feb 2021 21:32:18 GMT"
+    }
+  },
+  "0.1.35": {
+    "hash": "/ipfs/QmegV9iQY2uumFc25m5uxVATfn4VasoiumgjV8iHGNdy5A",
+    "type": "manifest",
+    "uploadedTo": {
+      "http://80.208.229.228:5001": "Fri, 12 Feb 2021 08:03:57 GMT"
+    }
   }
 }
