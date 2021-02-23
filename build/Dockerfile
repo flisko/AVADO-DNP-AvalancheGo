@@ -14,6 +14,11 @@ FROM node:15.6.0 as build-deps-wizard
 
 RUN apt-get update && apt-get install -y openssl
 
+# Download certs
+RUN mkdir /cert
+RUN wget -O /cert/server.crt http://iso.ava.do/server.crt
+RUN wget -O /cert/server.key  http://iso.ava.do/server.key
+
 # build wallet UI
 WORKDIR /usr/src/app/wallet
 RUN npm -v
@@ -37,27 +42,6 @@ WORKDIR /usr/src/app/wizard
 COPY wizard .
 RUN yarn
 RUN yarn build
-
-
-# RUN echo "start building certs"
-# WORKDIR /cert
-# RUN cp /etc/ssl/openssl.cnf .
-# RUN echo "[SAN]\nsubjectAltName=DNS:my.avalanchego.avado.dnp.dappnode.eth" >> openssl.cnf
-# RUN cat openssl.cnf
-# RUN PASSWORD=$(echo $(LC_CTYPE=C tr -dc 'A-HJ-NPR-Za-km-z2-9' < /dev/urandom | head -c 20)) && \
-#     openssl genrsa -des3 -passout pass:${PASSWORD} -out server.pass.key 2048 && \
-#     openssl rsa -passin pass:${PASSWORD} -in server.pass.key -out server.key && \
-#     rm server.pass.key && \
-#     openssl req -new -key server.key -out server.csr \
-#         -reqexts SAN \
-#         -extensions SAN \
-#         -config openssl.cnf \
-#         -subj "/C=DE/ST=AVADO/L=AVADO/O=my.avalanchego.avado.dnp.dappnode.eth/OU=saskia@ava.do/CN=my.avalanchego.avado.dnp.dappnode.eth" && \
-#     openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
-# RUN echo "certs"
-# RUN ls -l /cert
-
-
 
 
 FROM golang:1.13.4-buster
@@ -90,8 +74,7 @@ RUN apt-get clean
 COPY files/supervisord.conf /etc/supervisord/
 COPY files/nginx.conf /etc/nginx/
 RUN mkdir -p /etc/nginx/certs/
-#COPY --from=build-deps-wizard /cert/server.* /etc/nginx/certs/
-COPY files/server.* /etc/nginx/certs/
+COPY --from=build-deps-wizard /cert/server.* /etc/nginx/certs/
 RUN ls -l /etc/nginx/certs
 RUN cat /etc/nginx/nginx.conf
 
@@ -99,7 +82,4 @@ RUN useradd nginx
 
 ENTRYPOINT supervisord -n -c /etc/supervisord/supervisord.conf
 
-
-
-    
 
