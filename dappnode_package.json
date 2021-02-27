@@ -9,8 +9,8 @@
   "autoupdate": true,
   "image": {
     "path": "avalanchego.avado.dnp.dappnode.eth_0.1.36.tar.xz",
-    "hash": "/ipfs/QmPm92UHZTZ5k2wMeFTVb2J9mNbZD4AQbjhkbPd43dSzAn",
-    "size": 250932904,
+    "hash": "/ipfs/QmXHMQddPxV8GVunVFLyJYhz6eFF85GdjbDLYowmnhNrJA",
+    "size": 249483916,
     "restart": "always",
     "environment": [
       "EXTRA_OPTS"
