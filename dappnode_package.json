@@ -1,16 +1,16 @@
 {
   "name": "avalanchego.avado.dnp.dappnode.eth",
-  "version": "0.1.45",
-  "upstream": "v1.4.3",
+  "version": "0.1.46",
+  "upstream": "v1.4.4",
   "title": "Avalanche node",
   "description": "This is the Avalanche Mainnet node. Avalanche is an open-source platform for launching highly decentralized applications, new financial primitives, and new interoperable blockchains.",
   "avatar": "/ipfs/QmVwkdxaKfTiv6apuHjVP2ftzPahpcmwHpBNNdKp8QzZPn",
   "type": "service",
   "autoupdate": true,
   "image": {
-    "path": "avalanchego.avado.dnp.dappnode.eth_0.1.45.tar.xz",
-    "hash": "/ipfs/QmV6A48bmxkJM6dizDhCY7LhVGgfJagYiuFgd2qESEqcss",
-    "size": 252057284,
+    "path": "avalanchego.avado.dnp.dappnode.eth_0.1.46.tar.xz",
+    "hash": "/ipfs/Qma5wb8M3ZZYM1DuBoHdL5wi8s4VfcFVHMBNKSfyUvZQiF",
+    "size": 241147648,
     "restart": "always",
     "environment": [
       "EXTRA_OPTS"
