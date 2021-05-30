@@ -1,11 +1,11 @@
 version: '3.4'
 services:
   avalanchego.avado.dnp.dappnode.eth:
-    image: 'avalanchego.avado.dnp.dappnode.eth:0.1.48'
+    image: 'avalanchego.avado.dnp.dappnode.eth:0.1.49'
     build:
       context: ./build
       args:
-        - VERSION=v1.4.6
+        - VERSION=v1.4.7
     environment:
       - EXTRA_OPTS=--dynamic-public-ip=opendns
     volumes:
