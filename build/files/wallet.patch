@@ -1,19 +1,10 @@
 diff --git a/src/store/modules/network/network.ts b/src/store/modules/network/network.ts
-index df45ee0..7f76e36 100644
+index 9d43c38..c1385a4 100644
 --- a/src/store/modules/network/network.ts
 +++ b/src/store/modules/network/network.ts
-@@ -164,7 +164,7 @@ const network_module: Module<NetworkState, RootState> = {
-         },
- 
-         async init({ state, commit, dispatch }) {
--            // let netTest = new AvaNetwork("Everest TestNet", 'https://api.avax-test.network:443', 4, 'https://explorerapi.avax.network');
-+            // let netTest = new AvaNetwork('Everest TestNet", 'https://api.avax-test.network:443', 4, 'https://explorerapi.avax.network');
-             let manhattan = new AvaNetwork(
-                 'Mainnet',
-                 'https://api.avax.network:443',
-@@ -189,6 +189,17 @@ const network_module: Module<NetworkState, RootState> = {
-                 console.error(e)
-             }
+@@ -188,6 +188,15 @@ const network_module: Module<NetworkState, RootState> = {
+                 true
+             )
  
 +            let avado = new AvaNetwork(
 +                'Mainnet (AVADO)',
@@ -24,8 +15,14 @@ index df45ee0..7f76e36 100644
 +                true
 +            )
 +
+             // Load custom networks if any
+             try {
+                 await dispatch('load')
+@@ -195,6 +204,7 @@ const network_module: Module<NetworkState, RootState> = {
+                 console.error(e)
+             }
+ 
 +            commit('addNetwork', avado)
-+
-             // commit('addNetwork', netTest);
-             commit('addNetwork', manhattan)
+             commit('addNetwork', mainnet)
              commit('addNetwork', fuji)
+ 
