@@ -15,9 +15,10 @@ FROM node:15.6.0 as build-deps-wizard
 RUN apt-get update && apt-get install -y openssl
 
 # Download certs
-RUN mkdir /cert
-RUN wget -O /cert/server.crt http://iso.ava.do/server.crt
-RUN wget -O /cert/server.key  http://iso.ava.do/server.key
+RUN mkdir -p /etc/nginx/certs/
+
+RUN wget -O /etc/nginx/certs/my.ava.do.crt http://iso.ava.do/my.ava.do.crt
+RUN wget -O /etc/nginx/certs/my.ava.do.key  http://iso.ava.do/my.ava.do.key
 
 # build wallet UI
 WORKDIR /usr/src/app/wallet
@@ -74,7 +75,7 @@ RUN apt-get clean
 COPY files/supervisord.conf /etc/supervisord/
 COPY files/nginx.conf /etc/nginx/
 RUN mkdir -p /etc/nginx/certs/
-COPY --from=build-deps-wizard /cert/server.* /etc/nginx/certs/
+COPY --from=build-deps-wizard /etc/nginx/certs/* /etc/nginx/certs/
 RUN ls -l /etc/nginx/certs
 RUN cat /etc/nginx/nginx.conf
 

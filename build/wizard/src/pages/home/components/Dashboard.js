@@ -5,7 +5,7 @@ import DownloadBackup from "./DownloadBackup";
 import RestoreBackup from "./RestoreBackup";
 import "./Dashboard.css";
 
-const url = "ws://my.wamp.dnp.dappnode.eth:8080/ws";
+const url = "ws://wamp.my.ava.do:8080/ws";
 const realm = "dappnode_admin";
 
 
@@ -64,7 +64,7 @@ const Comp = () => {
                 <a href="http://my.avado/#/Packages/avalanchego.avado.dnp.dappnode.eth/detail" target="_blank">show node logs</a>
                 <br />
                 <br />
-                <a disabled={!walletEnabled} href="https://avalanchego.avadopackage.com/" className="button" target="_blank">Open Wallet UI</a>
+                <a disabled={!walletEnabled} href="https://avalanchego.my.ava.do/" className="button" target="_blank">Open Wallet UI</a>
             </div>
 
             <div className="setting">

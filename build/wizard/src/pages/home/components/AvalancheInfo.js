@@ -13,7 +13,7 @@ import {
 
 const endpoint = {
     protocol: "https",
-    host: "avalanchego.avadopackage.com",
+    host: "avalanchego.my.ava.do",
     port: 9650
 }
 
