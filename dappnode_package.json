@@ -1,6 +1,6 @@
 {
   "name": "avalanchego.avado.dnp.dappnode.eth",
-  "version": "0.1.63",
+  "version": "0.1.64",
   "upstream": "v1.7.2",
   "title": "Avalanche node",
   "description": "This is the Avalanche Mainnet node. Avalanche is an open-source platform for launching highly decentralized applications, new financial primitives, and new interoperable blockchains.",
@@ -8,9 +8,9 @@
   "type": "service",
   "autoupdate": true,
   "image": {
-    "path": "avalanchego.avado.dnp.dappnode.eth_0.1.63.tar.xz",
-    "hash": "/ipfs/QmR778b2tW5gshneD99ihH8s36wEXSGYLhaGemz9Ks2tP3",
-    "size": 240341508,
+    "path": "avalanchego.avado.dnp.dappnode.eth_0.1.64.tar.xz",
+    "hash": "/ipfs/QmRVLDAYWNzaM5DGs1BBLWcRrFGr5Y6WHjrnxbYqf6MwmC",
+    "size": 257829156,
     "restart": "always",
     "environment": [
       "EXTRA_OPTS"
@@ -26,15 +26,15 @@
   "author": "AVADO",
   "license": "(C)",
   "links": {
-    "OnboardingWizard": "http://avalanchego.avadopackage.com",
-    "Wallet": "https://avalanchego.avadopackage.com",
-    "RPC": "https://avalanchego.avadopackage.com:9650"
+    "OnboardingWizard": "http://avalanchego.my.ava.do",
+    "Wallet": "https://avalanchego.my.ava.do",
+    "RPC": "https://avalanchego.my.ava.do:9650"
   },
   "ui": {
     "OnboardingWizard": {
-      "url": "http://avalanchego.avadopackage.com",
+      "url": "http://avalanchego.my.ava.do",
       "external": true
     }
   },
-  "builddate": "2021-12-14T09:01:02.938Z"
+  "builddate": "2021-12-16T01:58:31.895Z"
 }

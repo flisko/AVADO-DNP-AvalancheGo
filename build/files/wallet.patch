@@ -8,7 +8,7 @@ index 9d43c38..c1385a4 100644
  
 +            let avado = new AvaNetwork(
 +                'Mainnet (AVADO)',
-+                'https://avalanchego.avadopackage.com:9650',
++                'https://avalanchego.my.ava.do:9650',
 +                1,
 +                'https://explorerapi.avax.network',
 +                'https://explorer.avax.network',
