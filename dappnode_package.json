@@ -9,8 +9,8 @@
   "autoupdate": true,
   "image": {
     "path": "avalanchego.avado.dnp.dappnode.eth_0.1.64.tar.xz",
-    "hash": "/ipfs/QmcXzCFdFmuU8oUvZw1Cp6CKJzc9ZUxGVK7ghPYFHVHnXK",
-    "size": 257808348,
+    "hash": "/ipfs/QmRmpE38JZxHUzotuLPUAob5ZXRWDtYMetsLUpURym5quy",
+    "size": 240101948,
     "restart": "always",
     "environment": [
       "EXTRA_OPTS"
@@ -36,5 +36,5 @@
       "external": true
     }
   },
-  "builddate": "2021-12-19T22:10:51.416Z"
+  "builddate": "2021-12-19T23:18:35.578Z"
 }
