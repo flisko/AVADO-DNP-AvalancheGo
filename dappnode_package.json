@@ -8,9 +8,6 @@
   "type": "service",
   "autoupdate": true,
   "image": {
-    "path": "avalanchego.avado.dnp.dappnode.eth_0.1.64.tar.xz",
-    "hash": "/ipfs/QmRmpE38JZxHUzotuLPUAob5ZXRWDtYMetsLUpURym5quy",
-    "size": 240101948,
     "restart": "always",
     "environment": [
       "EXTRA_OPTS"
@@ -35,6 +32,5 @@
       "url": "http://avalanchego.my.ava.do",
       "external": true
     }
-  },
-  "builddate": "2021-12-19T23:18:35.578Z"
+  }
 }
