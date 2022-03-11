@@ -61,7 +61,7 @@ const Comp = () => {
                     onNodeReady={(isReady) => {
                         setWalletEnabled(isReady);
                     }} />
-                <a href="http://my.avado/#/Packages/avalanchego.avado.dnp.dappnode.eth/detail" target="_blank">show node logs</a>
+                <a href="http://my.ava.do/#/Packages/avalanchego.avado.dnp.dappnode.eth/detail" target="_blank">show node logs</a>
                 <br />
                 <br />
                 <a disabled={!walletEnabled} href="https://avalanchego.my.ava.do/" className="button" target="_blank">Open Wallet UI</a>
