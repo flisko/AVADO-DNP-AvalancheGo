@@ -1,7 +1,7 @@
 {
   "name": "avalanchego.avado.dnp.dappnode.eth",
-  "version": "0.1.68",
-  "upstream": "v1.7.10",
+  "version": "0.1.69",
+  "upstream": "v1.7.13",
   "title": "Avalanche node",
   "description": "This is the Avalanche Mainnet node. Avalanche is an open-source platform for launching highly decentralized applications, new financial primitives, and new interoperable blockchains.",
   "avatar": "/ipfs/QmVwkdxaKfTiv6apuHjVP2ftzPahpcmwHpBNNdKp8QzZPn",
