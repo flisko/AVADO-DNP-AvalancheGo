@@ -34,7 +34,7 @@ RUN git apply wallet.patch
 
 RUN cat src/store/modules/network/network.ts
 
-RUN yarn build
+RUN NODE_OPTIONS=--max_old_space_size=4096 yarn build
 
 RUN ls -l /usr/src/app/wallet/avalanche-wallet/dist
 
