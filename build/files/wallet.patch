@@ -6,7 +6,7 @@ index 9d43c38..c1385a4 100644
                  true
              )
  
-+            let avado = new AvaNetwork(
++            const avado = new AvaNetwork(
 +                'Mainnet (AVADO)',
 +                'https://avalanchego.my.ava.do:9650',
 +                1,
