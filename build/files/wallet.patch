@@ -1,28 +1,53 @@
+diff --git a/src/components/misc/UrlBanner.vue b/src/components/misc/UrlBanner.vue
+index 5b15afc8..710135ce 100644
+--- a/src/components/misc/UrlBanner.vue
++++ b/src/components/misc/UrlBanner.vue
+@@ -3,7 +3,7 @@
+         <template v-slot:default>
+             <fa icon="exclamation-triangle"></fa>
+             Make sure the URL is
+-            <b>wallet.avax.network</b>
++            <b>avalanchego.my.ava.do</b>
+             <button @click="dismiss" class="dismiss_but" data-cy="dismiss_banner">
+                 <fa icon="times"></fa>
+             </button>
+diff --git a/src/store/modules/network/constants.ts b/src/store/modules/network/constants.ts
+index 0255526e..f4116f6b 100644
+--- a/src/store/modules/network/constants.ts
++++ b/src/store/modules/network/constants.ts
+@@ -1,5 +1,14 @@
+ import { AvaNetwork } from '@/js/AvaNetwork'
+
++export const AvadoConfig = new AvaNetwork(
++    'Mainnet (AVADO)',
++    'https://avalanchego.my.ava.do:9650',
++    1,
++    'https://explorerapi.avax.network',
++    'https://explorer-xp.avax.network',
++    true
++)
++
+ export const MainnetConfig = new AvaNetwork(
+     'Mainnet',
+     'https://api.avax.network:443',
 diff --git a/src/store/modules/network/network.ts b/src/store/modules/network/network.ts
-index 9d43c38..c1385a4 100644
+index ab359839..4dbeca69 100644
 --- a/src/store/modules/network/network.ts
 +++ b/src/store/modules/network/network.ts
-@@ -188,6 +188,15 @@ const network_module: Module<NetworkState, RootState> = {
-                 true
-             )
- 
-+            const avado = new AvaNetwork(
-+                'Mainnet (AVADO)',
-+                'https://avalanchego.my.ava.do:9650',
-+                1,
-+                'https://explorerapi.avax.network',
-+                'https://explorer.avax.network',
-+                true
-+            )
-+
-             // Load custom networks if any
-             try {
-                 await dispatch('load')
-@@ -195,6 +204,7 @@ const network_module: Module<NetworkState, RootState> = {
+@@ -11,7 +11,7 @@ import router from '@/router'
+ import { web3 } from '@/evm'
+ import { setSocketNetwork } from '../../../providers'
+ import { getConfigFromUrl, setNetworkAsync } from '@avalabs/avalanche-wallet-sdk'
+-import { MainnetConfig, TestnetConfig } from '@/store/modules/network/constants'
++import { AvadoConfig, MainnetConfig, TestnetConfig } from '@/store/modules/network/constants'
+ const network_module: Module<NetworkState, RootState> = {
+     namespaced: true,
+     state: {
+@@ -189,6 +189,7 @@ const network_module: Module<NetworkState, RootState> = {
                  console.error(e)
              }
- 
-+            commit('addNetwork', avado)
-             commit('addNetwork', mainnet)
-             commit('addNetwork', fuji)
+
++            commit('addNetwork', AvadoConfig)
+             commit('addNetwork', MainnetConfig)
+             commit('addNetwork', TestnetConfig)
  
