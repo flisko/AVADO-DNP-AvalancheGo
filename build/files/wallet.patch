@@ -1,28 +1,32 @@
+diff --git a/src/components/misc/UrlBanner.vue b/src/components/misc/UrlBanner.vue
+index 5b15afc8..710135ce 100644
+--- a/src/components/misc/UrlBanner.vue
++++ b/src/components/misc/UrlBanner.vue
+@@ -3,7 +3,7 @@
+         <template v-slot:default>
+             <fa icon="exclamation-triangle"></fa>
+             Make sure the URL is
+-            <b>wallet.avax.network</b>
++            <b>avalanchego.my.ava.do</b>
+             <button @click="dismiss" class="dismiss_but" data-cy="dismiss_banner">
+                 <fa icon="times"></fa>
+             </button>
 diff --git a/src/store/modules/network/network.ts b/src/store/modules/network/network.ts
-index 9d43c38..c1385a4 100644
+index ab359839..1fe63ca7 100644
 --- a/src/store/modules/network/network.ts
 +++ b/src/store/modules/network/network.ts
-@@ -188,6 +188,15 @@ const network_module: Module<NetworkState, RootState> = {
-                 true
-             )
- 
-+            const avado = new AvaNetwork(
+@@ -189,6 +189,14 @@ const network_module: Module<NetworkState, RootState> = {
+                 console.error(e)
+             }
+
++            commit('addNetwork',  new AvaNetwork(
 +                'Mainnet (AVADO)',
 +                'https://avalanchego.my.ava.do:9650',
 +                1,
 +                'https://explorerapi.avax.network',
-+                'https://explorer.avax.network',
++                'https://explorer-xp.avax.network',
 +                true
-+            )
-+
-             // Load custom networks if any
-             try {
-                 await dispatch('load')
-@@ -195,6 +204,7 @@ const network_module: Module<NetworkState, RootState> = {
-                 console.error(e)
-             }
- 
-+            commit('addNetwork', avado)
-             commit('addNetwork', mainnet)
-             commit('addNetwork', fuji)
++            ))
+             commit('addNetwork', MainnetConfig)
+             commit('addNetwork', TestnetConfig)
  
