@@ -67,12 +67,13 @@ RUN echo "contents of /usr/local/app in target"
 RUN ls -l /usr/local/app
 RUN chmod +x /usr/local/app/avalanchego
 
-#RUN apk add -U --no-cache supervisor go
 RUN apt-get update
 RUN apt-get install -y supervisor nginx
 RUN apt-get clean
 
 COPY files/supervisord.conf /etc/supervisord/
+COPY files/dlcerts.sh /bin/dlcerts
+RUN chmod +x /bin/dlcerts
 COPY files/nginx.conf /etc/nginx/
 RUN mkdir -p /etc/nginx/certs/
 COPY --from=build-deps-wizard /etc/nginx/certs/* /etc/nginx/certs/
