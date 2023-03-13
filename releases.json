@@ -425,11 +425,25 @@
       "http://80.208.229.228:5001": "Tue, 18 Oct 2022 14:37:01 GMT"
     }
   },
-  "0.1.75": {
-    "hash": "/ipfs/Qmb9QLQKGTUhixfYgzqriC1gM6uCBjpYJqpozsr7y6EEKC",
+  "0.1.76": {
+    "hash": "/ipfs/QmUPAEhAtc8Eox5mo8jiJsz1GA1ECpcn1nfCrfrE8iXHL5",
     "type": "manifest",
     "uploadedTo": {
-      "http://80.208.229.228:5001": "Fri, 02 Dec 2022 14:16:38 GMT"
+      "dappnode": "Wed, 07 Dec 2022 13:55:17 GMT"
+    }
+  },
+  "0.1.77": {
+    "hash": "/ipfs/QmbSUGpsYh2fouMBYXAsuFZZr4dTqnFZ7c5w94NT4QrZqm",
+    "type": "manifest",
+    "uploadedTo": {
+      "dappnode": "Fri, 23 Dec 2022 17:41:11 GMT"
+    }
+  },
+  "0.1.78": {
+    "hash": "/ipfs/QmXRLtS2wGwadzXBNyZms5QCGE5qrCmocn3rizBdbBgBL7",
+    "type": "manifest",
+    "uploadedTo": {
+      "http://80.208.229.228:5001": "Mon, 13 Mar 2023 13:06:02 GMT"
     }
   }
 }
