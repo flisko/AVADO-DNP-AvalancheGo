@@ -14,9 +14,8 @@ FROM --platform=linux/amd64 node:15.6.0 as build-deps-wizard
 
 RUN apt-get update && apt-get install -y openssl
 
-# Download certs
+# Download initial SSL certs
 RUN mkdir -p /etc/nginx/certs/
-
 RUN wget -O /etc/nginx/certs/my.ava.do.crt http://iso.ava.do/my.ava.do.crt
 RUN wget -O /etc/nginx/certs/my.ava.do.key  http://iso.ava.do/my.ava.do.key
 
@@ -45,21 +44,23 @@ RUN yarn
 RUN yarn build
 
 
+# Build final image
 FROM --platform=linux/amd64 golang:1.13.4-buster
 
 USER root
 
+# Copy wallet UI
 COPY --from=builder /app /usr/local/app
 COPY --from=build-deps-wizard /usr/src/app/wallet/avalanche-wallet/dist /usr/local/wallet
 COPY --from=build-deps-wizard /usr/src/app/wizard/build /usr/local/wizard
 
-RUN echo "contents of /usr/local/ in target"
-RUN ls -l /usr/local/
-RUN echo "contents of /usr/local/wizard in target"
-RUN ls -l /usr/local/wizard
-# RUN echo "contents of /usr/local/wallet in target "
-# RUN ls -l /usr/local/wallet
-RUN echo "-------------"
+# RUN echo "contents of /usr/local/ in target"
+# RUN ls -l /usr/local/
+# RUN echo "contents of /usr/local/wizard in target"
+# RUN ls -l /usr/local/wizard
+# # RUN echo "contents of /usr/local/wallet in target "
+# # RUN ls -l /usr/local/wallet
+# RUN echo "-------------"
 
 
 RUN echo "contents of /usr/local/app in target"
