@@ -4,11 +4,11 @@ ARG VERSION
 WORKDIR /
 RUN wget https://github.com/ava-labs/avalanchego/releases/download/$VERSION/avalanchego-linux-amd64-$VERSION.tar.gz
 RUN tar zxvf avalanchego-linux-amd64-$VERSION.tar.gz
-RUN ls -l
+#RUN ls -l
 RUN mkdir -p /app
 RUN mv avalanchego-$VERSION/* /app
 RUN echo "contents of /app in builder"
-RUN ls -l /app
+#RUN ls -l /app
 
 FROM --platform=linux/amd64 node:15.6.0 as build-deps-wizard
 
@@ -35,7 +35,7 @@ RUN cat src/store/modules/network/network.ts
 
 RUN NODE_OPTIONS=--max_old_space_size=4096 yarn build
 
-RUN ls -l /usr/src/app/wallet/avalanche-wallet/dist
+#RUN ls -l /usr/src/app/wallet/avalanche-wallet/dist
 
 # build wallet UI
 WORKDIR /usr/src/app/wizard
@@ -63,8 +63,8 @@ COPY --from=build-deps-wizard /usr/src/app/wizard/build /usr/local/wizard
 # RUN echo "-------------"
 
 
-RUN echo "contents of /usr/local/app in target"
-RUN ls -l /usr/local/app
+#RUN echo "contents of /usr/local/app in target"
+#RUN ls -l /usr/local/app
 RUN chmod +x /usr/local/app/avalanchego
 
 RUN apt-get update
@@ -77,8 +77,8 @@ RUN chmod +x /bin/dlcerts
 COPY files/nginx.conf /etc/nginx/
 RUN mkdir -p /etc/nginx/certs/
 COPY --from=build-deps-wizard /etc/nginx/certs/* /etc/nginx/certs/
-RUN ls -l /etc/nginx/certs
-RUN cat /etc/nginx/nginx.conf
+# RUN ls -l /etc/nginx/certs
+# RUN cat /etc/nginx/nginx.conf
 
 # copy config files
 COPY files/config /config 
