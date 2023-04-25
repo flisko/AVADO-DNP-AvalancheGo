@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 golang:1.13.4-buster as builder
+FROM --platform=linux/amd64 golang:1.20.3-bullseye as builder
 
 ARG VERSION
 WORKDIR /
@@ -45,7 +45,7 @@ RUN yarn build
 
 
 # Build final image
-FROM --platform=linux/amd64 golang:1.13.4-buster
+FROM --platform=linux/amd64 golang:1.20.3-bullseye
 
 USER root
 
