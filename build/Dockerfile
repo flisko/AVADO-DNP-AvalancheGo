@@ -1,22 +1,21 @@
-FROM --platform=linux/amd64 golang:1.13.4-buster as builder
+FROM --platform=linux/amd64 golang:1.20.3-bullseye as builder
 
 ARG VERSION
 WORKDIR /
 RUN wget https://github.com/ava-labs/avalanchego/releases/download/$VERSION/avalanchego-linux-amd64-$VERSION.tar.gz
 RUN tar zxvf avalanchego-linux-amd64-$VERSION.tar.gz
-RUN ls -l
+#RUN ls -l
 RUN mkdir -p /app
 RUN mv avalanchego-$VERSION/* /app
 RUN echo "contents of /app in builder"
-RUN ls -l /app
+#RUN ls -l /app
 
-FROM --platform=linux/amd64 node:15.6.0 as build-deps-wizard
+FROM --platform=linux/amd64 node:15.14.0-buster as build-deps-wizard
 
 RUN apt-get update && apt-get install -y openssl
 
-# Download certs
+# Download initial SSL certs
 RUN mkdir -p /etc/nginx/certs/
-
 RUN wget -O /etc/nginx/certs/my.ava.do.crt http://iso.ava.do/my.ava.do.crt
 RUN wget -O /etc/nginx/certs/my.ava.do.key  http://iso.ava.do/my.ava.do.key
 
@@ -36,7 +35,7 @@ RUN cat src/store/modules/network/network.ts
 
 RUN NODE_OPTIONS=--max_old_space_size=4096 yarn build
 
-RUN ls -l /usr/src/app/wallet/avalanche-wallet/dist
+#RUN ls -l /usr/src/app/wallet/avalanche-wallet/dist
 
 # build wallet UI
 WORKDIR /usr/src/app/wizard
@@ -45,25 +44,27 @@ RUN yarn
 RUN yarn build
 
 
-FROM --platform=linux/amd64 golang:1.13.4-buster
+# Build final image
+FROM --platform=linux/amd64 golang:1.20.3-bullseye
 
 USER root
 
+# Copy wallet UI
 COPY --from=builder /app /usr/local/app
 COPY --from=build-deps-wizard /usr/src/app/wallet/avalanche-wallet/dist /usr/local/wallet
 COPY --from=build-deps-wizard /usr/src/app/wizard/build /usr/local/wizard
 
-RUN echo "contents of /usr/local/ in target"
-RUN ls -l /usr/local/
-RUN echo "contents of /usr/local/wizard in target"
-RUN ls -l /usr/local/wizard
-# RUN echo "contents of /usr/local/wallet in target "
-# RUN ls -l /usr/local/wallet
-RUN echo "-------------"
+# RUN echo "contents of /usr/local/ in target"
+# RUN ls -l /usr/local/
+# RUN echo "contents of /usr/local/wizard in target"
+# RUN ls -l /usr/local/wizard
+# # RUN echo "contents of /usr/local/wallet in target "
+# # RUN ls -l /usr/local/wallet
+# RUN echo "-------------"
 
 
-RUN echo "contents of /usr/local/app in target"
-RUN ls -l /usr/local/app
+#RUN echo "contents of /usr/local/app in target"
+#RUN ls -l /usr/local/app
 RUN chmod +x /usr/local/app/avalanchego
 
 RUN apt-get update
@@ -76,8 +77,8 @@ RUN chmod +x /bin/dlcerts
 COPY files/nginx.conf /etc/nginx/
 RUN mkdir -p /etc/nginx/certs/
 COPY --from=build-deps-wizard /etc/nginx/certs/* /etc/nginx/certs/
-RUN ls -l /etc/nginx/certs
-RUN cat /etc/nginx/nginx.conf
+# RUN ls -l /etc/nginx/certs
+# RUN cat /etc/nginx/nginx.conf
 
 # copy config files
 COPY files/config /config 
