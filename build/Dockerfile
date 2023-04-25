@@ -10,7 +10,7 @@ RUN mv avalanchego-$VERSION/* /app
 RUN echo "contents of /app in builder"
 #RUN ls -l /app
 
-FROM --platform=linux/amd64 node:15.6.0 as build-deps-wizard
+FROM --platform=linux/amd64 node:15.14.0-buster as build-deps-wizard
 
 RUN apt-get update && apt-get install -y openssl
 
