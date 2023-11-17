@@ -10,7 +10,7 @@ RUN mv avalanchego-$VERSION/* /app
 RUN echo "contents of /app in builder"
 #RUN ls -l /app
 
-FROM --platform=linux/amd64 node:17-buster as build-deps-wizard
+FROM --platform=linux/amd64 node:16-buster as build-deps-wizard
 
 RUN apt-get update && apt-get install -y openssl
 
@@ -34,6 +34,7 @@ RUN git apply wallet.patch
 RUN cat src/store/modules/network/network.ts
 
 RUN NODE_OPTIONS=--max_old_space_size=4096 yarn build
+RUN yarn build
 
 #RUN ls -l /usr/src/app/wallet/avalanche-wallet/dist
 
