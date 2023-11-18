@@ -10,7 +10,7 @@ RUN mv avalanchego-$VERSION/* /app
 RUN echo "contents of /app in builder"
 #RUN ls -l /app
 
-FROM --platform=linux/amd64 node:15.14.0-buster as build-deps-wizard
+FROM --platform=linux/amd64 node:16-buster as build-deps-wallet
 
 RUN apt-get update && apt-get install -y openssl
 
@@ -33,9 +33,9 @@ RUN git apply wallet.patch
 
 RUN cat src/store/modules/network/network.ts
 
-RUN NODE_OPTIONS=--max_old_space_size=4096 yarn build
+RUN yarn build
 
-#RUN ls -l /usr/src/app/wallet/avalanche-wallet/dist
+FROM --platform=linux/amd64 node:15.14.0-buster as build-deps-wizard
 
 # build wallet UI
 WORKDIR /usr/src/app/wizard
@@ -51,20 +51,9 @@ USER root
 
 # Copy wallet UI
 COPY --from=builder /app /usr/local/app
-COPY --from=build-deps-wizard /usr/src/app/wallet/avalanche-wallet/dist /usr/local/wallet
+COPY --from=build-deps-wallet /usr/src/app/wallet/avalanche-wallet/dist /usr/local/wallet
 COPY --from=build-deps-wizard /usr/src/app/wizard/build /usr/local/wizard
 
-# RUN echo "contents of /usr/local/ in target"
-# RUN ls -l /usr/local/
-# RUN echo "contents of /usr/local/wizard in target"
-# RUN ls -l /usr/local/wizard
-# # RUN echo "contents of /usr/local/wallet in target "
-# # RUN ls -l /usr/local/wallet
-# RUN echo "-------------"
-
-
-#RUN echo "contents of /usr/local/app in target"
-#RUN ls -l /usr/local/app
 RUN chmod +x /usr/local/app/avalanchego
 
 RUN apt-get update
@@ -76,9 +65,7 @@ COPY files/dlcerts.sh /bin/dlcerts
 RUN chmod +x /bin/dlcerts
 COPY files/nginx.conf /etc/nginx/
 RUN mkdir -p /etc/nginx/certs/
-COPY --from=build-deps-wizard /etc/nginx/certs/* /etc/nginx/certs/
-# RUN ls -l /etc/nginx/certs
-# RUN cat /etc/nginx/nginx.conf
+COPY --from=build-deps-wallet /etc/nginx/certs/* /etc/nginx/certs/
 
 # copy config files
 COPY files/config /config 
@@ -86,5 +73,3 @@ COPY files/config /config
 RUN useradd nginx
 
 ENTRYPOINT supervisord -n -c /etc/supervisord/supervisord.conf
-
-
