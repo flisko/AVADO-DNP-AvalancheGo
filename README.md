@@ -1,5 +1,6 @@
 # AVADO Avalanche validator package
 
+
 ## Prerequisites
  
  - A WiFi or VPN connection to your AVADO box 
