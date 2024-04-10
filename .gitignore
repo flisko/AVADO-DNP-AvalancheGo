@@ -3,3 +3,4 @@ build_*
 data
 build/Dockerfile
 releases.json
+build/wizard_old
