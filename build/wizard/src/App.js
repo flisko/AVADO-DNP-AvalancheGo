@@ -1,28 +1,15 @@
-import React from 'react';
-import pages from "./pages";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./css/style.sass";
-
+import NodeID from "./NodeID.tsx"
+// import NodeHealth from "./NodeHealth.tsx"
 function App() {
-    return (
-        <div className="App">
-        {/* <AutoBahn/> */}
-            <BrowserRouter>
-                <Switch>
-                    {Object.values(pages).map(({ RootComponent, rootPath }) => (
-                        <Route
-                            key={rootPath}
-                            path={rootPath}
-                            exact={rootPath === "/"}
-                            render={props => (
-                                <RootComponent rootpath={rootPath} {...props} />
-                            )}
-                        />
-                    ))}
-                </Switch>
-            </BrowserRouter>
-        </div>
-    );
+  return (
+    <div className="App">
+      <header className="App-header">
+      <NodeID />
+      {/* <NodeHealth /> */}
+      </header>
+    </div>
+  );
 }
 
 export default App;
