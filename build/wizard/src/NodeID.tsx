@@ -58,7 +58,6 @@ function NetworkID() {
 
 
         <>
-            <h3 className="is-size-3 has-text-white">Node status</h3>
 
             <section className="is-medium has-text-white">
 
