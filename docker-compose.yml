@@ -1,7 +1,7 @@
 version: '3.4'
 services:
   avalanchego.avado.dnp.dappnode.eth:
-    image: 'avalanchego.avado.dnp.dappnode.eth:0.1.92'
+    image: 'avalanchego.avado.dnp.dappnode.eth:0.1.93'
     build:
       context: ./build
       args:
