@@ -16,7 +16,7 @@ function NetworkID() {
         const fetchNodeHealth = async () => {
             setIsLoading(true);
             try {
-                const response = await fetch('https://avalanchego.my.ava.do:9650/ext/health', {
+                const response = await fetch('http://avalanchego.my.ava.do:9650/ext/health', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
