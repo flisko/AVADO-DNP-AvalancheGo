@@ -9,9 +9,16 @@
   "autoupdate": true,
   "image": {
     "restart": "always",
-    "environment": ["EXTRA_OPTS"],
-    "ports": ["9651:9651/tcp", "9651:9651/udp"],
-    "volumes": ["data:/root/.avalanchego"]
+    "environment": [
+      "EXTRA_OPTS"
+    ],
+    "ports": [
+      "9651:9651/tcp",
+      "9651:9651/udp"
+    ],
+    "volumes": [
+      "data:/root/.avalanchego"
+    ]
   },
   "author": "AVADO",
   "license": "(C)",
